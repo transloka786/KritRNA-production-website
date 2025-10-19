@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, FormEvent } from 'react';
 import GlassCard from '@/components/GlassCard';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -16,12 +16,53 @@ const collaborationTypes = [
 ];
 
 export default function ContactPage() {
-  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    organization: '',
+    role: '',
+    message: '',
+    collaborationTypes: [] as string[],
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
-  const toggleType = (id: string) => {
-    setSelectedTypes((prev) =>
-      prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]
-    );
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSelectChange = (value: string) => {
+    setFormData({ ...formData, role: value });
+  };
+
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSubmitStatus({ type: 'success', message: data.message || 'Message sent successfully!' });
+        setFormData({ name: '', email: '', organization: '', role: '', message: '', collaborationTypes: [] }); // Clear form
+      } else {
+        setSubmitStatus({ type: 'error', message: data.message || 'Failed to send message.' });
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      setSubmitStatus({ type: 'error', message: 'An unexpected error occurred.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -70,7 +111,7 @@ export default function ContactPage() {
           className="max-w-3xl mx-auto"
         >
           <GlassCard hover={false}>
-            <form className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
@@ -78,6 +119,9 @@ export default function ContactPage() {
                   </label>
                   <Input
                     id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
                     type="text"
                     required
                     className="glass border-white/10 text-white placeholder:text-gray-500"
@@ -91,6 +135,9 @@ export default function ContactPage() {
                   </label>
                   <Input
                     id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     type="email"
                     required
                     className="glass border-white/10 text-white placeholder:text-gray-500"
@@ -106,6 +153,9 @@ export default function ContactPage() {
                   </label>
                   <Input
                     id="organization"
+                    name="organization"
+                    value={formData.organization}
+                    onChange={handleInputChange}
                     type="text"
                     className="glass border-white/10 text-white placeholder:text-gray-500"
                     placeholder="Your organization"
@@ -116,7 +166,7 @@ export default function ContactPage() {
                   <label htmlFor="role" className="block text-sm font-medium text-gray-300 mb-2">
                     Role *
                   </label>
-                  <Select>
+                  <Select onValueChange={handleSelectChange} value={formData.role} required>
                     <SelectTrigger className="glass border-white/10 text-white">
                       <SelectValue placeholder="Select your role" />
                     </SelectTrigger>
@@ -138,6 +188,9 @@ export default function ContactPage() {
                 </label>
                 <Textarea
                   id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   required
                   rows={6}
                   className="glass border-white/10 text-white placeholder:text-gray-500 resize-none"
@@ -152,12 +205,17 @@ export default function ContactPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {collaborationTypes.map((type) => {
                     const Icon = type.icon;
-                    const isSelected = selectedTypes.includes(type.id);
+                    const isSelected = formData.collaborationTypes.includes(type.id);
                     return (
                       <button
                         key={type.id}
                         type="button"
-                        onClick={() => toggleType(type.id)}
+                        onClick={() => setFormData(prev => ({
+                          ...prev,
+                          collaborationTypes: prev.collaborationTypes.includes(type.id)
+                            ? prev.collaborationTypes.filter(t => t !== type.id)
+                            : [...prev.collaborationTypes, type.id]
+                        }))}
                         className={`glass p-4 rounded-lg transition-all duration-300 ${
                           isSelected ? 'bg-white/20 scale-105' : 'hover:bg-white/10'
                         }`}
@@ -183,10 +241,26 @@ export default function ContactPage() {
 
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="w-full px-8 py-4 rounded-lg bg-[#32E2E2] text-[#020617] font-semibold text-lg transition-all duration-300 hover:bg-[#32E2E2]/90 hover:scale-105 hover:shadow-[0_0_30px_rgba(50,226,226,0.5)]"
               >
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </button>
+
+              <AnimatePresence>
+                {submitStatus && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className={`mt-4 p-3 rounded-lg text-center ${
+                      submitStatus.type === 'success' ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'
+                    }`}
+                  >
+                    {submitStatus.message}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </form>
           </GlassCard>
 
