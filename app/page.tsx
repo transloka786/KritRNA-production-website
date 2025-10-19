@@ -1,191 +1,209 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Shield, Dna, Heart } from 'lucide-react';
-import Link from 'next/link';
+import { useState } from 'react';
 import GlassCard from '@/components/GlassCard';
-import ChangingWords from '@/components/ChangingWords';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Beaker, Rocket, Database, Key } from 'lucide-react';
 
-const principles = [
-  {
-    icon: Heart,
-    title: 'Patient-First',
-    description: 'Every decision prioritizes patient outcomes and accessibility',
-    color: '#FF3B47',
-  },
-  {
-    icon: Dna,
-    title: 'Programmable Biology',
-    description: 'Engineering cellular translation with precision and control',
-    color: '#32E2E2',
-  },
-  {
-    icon: Shield,
-    title: 'Safety by Design',
-    description: 'Built-in safeguards at every level of therapeutic development',
-    color: '#E1FF17',
-  },
+const collaborationTypes = [
+  { id: 'pilot', icon: Beaker, label: 'Pilot Program', color: '#32E2E2' },
+  { id: 'codev', icon: Rocket, label: 'Co-Development', color: '#E1FF17' },
+  { id: 'data', icon: Database, label: 'Data Partnership', color: '#C99EED' },
+  { id: 'license', icon: Key, label: 'License', color: '#38B6FF' },
 ];
 
-export default function HomePage() {
+export default function ContactPage() {
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+
+  const toggleType = (id: string) => {
+    setSelectedTypes((prev) =>
+      prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]
+    );
+  };
+
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Animated tRNA molecules */}
-        <div className="absolute inset-0">
-          {[...Array(5)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute w-20 h-20 opacity-30"
-              style={{
-                left: `${20 + i * 15}%`,
-                top: `${30 + (i % 2) * 40}%`,
-              }}
-              animate={{
-                rotate: 360,
-                scale: [1, 1.2, 1],
-                y: [0, -20, 0],
-              }}
-              transition={{
-                duration: 8 + i * 2,
-                repeat: Infinity,
-                ease: 'linear',
-              }}
-            >
-              <img
-                src={`/tRNA ${['blue', 'green ', 'purple', 'red', 'blue'][i]}.png`}
-                alt="tRNA molecule"
-                className="w-full h-full object-contain"
-              />
-            </motion.div>
-          ))}
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-12 text-center">
+    <div className="min-h-screen relative overflow-hidden">
+      <div className="absolute inset-0 opacity-30">
+        {[...Array(50)].map((_, i) => (
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="w-full"
-          >
-            <h1 className="text-6xl md:text-8xl font-light text-white mb-8 leading-tight tracking-tight">
-              Engineering the
-              <br />
-              <span className="text-gradient">Language of Life</span>
-            </h1>
-            <ChangingWords />
-            <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed w-full font-light tracking-wide">
-              AI-driven suppressor tRNA therapeutics for rare genetic diseases caused by 
-              premature termination codons
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-              <Link
-                href="/technology"
-                className="inline-flex items-center space-x-2 px-8 py-4 rounded-lg bg-brand-pink text-white font-semibold text-lg transition-all duration-300 hover:bg-brand-pink/90 hover:scale-105"
-              >
-                <span>Explore Our Platform</span>
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link
-                href="/problem"
-                className="inline-flex items-center space-x-2 px-8 py-4 rounded-lg glass glass-hover font-semibold text-white"
-              >
-                <span>Learn About PTCs</span>
-              </Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+            key={i}
+            className="absolute w-1 h-1 bg-[#32E2E2] rounded-full"
+            initial={{
+              x: typeof window !== 'undefined' ? Math.random() * window.innerWidth : Math.random() * 1920,
+              y: typeof window !== 'undefined' ? Math.random() * window.innerHeight : Math.random() * 1080,
+            }}
+            animate={{
+              y: [null, typeof window !== 'undefined' ? Math.random() * window.innerHeight : Math.random() * 1080],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: Math.random() * 3 + 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          />
+        ))}
+      </div>
 
-      {/* Principles Section */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Our Guiding Principles
-            </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Three core values that drive every aspect of our therapeutic development
-            </p>
-          </motion.div>
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-12 py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
+            Get in <span className="text-[#32E2E2]">Touch</span>
+          </h1>
+          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            Let's discuss how KritRNA can accelerate your rare disease programs
+          </p>
+        </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {principles.map((principle, index) => {
-              const Icon = principle.icon;
-              return (
-                <motion.div
-                  key={principle.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, delay: index * 0.2 }}
-                >
-                  <GlassCard className="text-center h-full">
-                    <div
-                      className="w-20 h-20 rounded-xl flex items-center justify-center mx-auto mb-6"
-                      style={{
-                        background: `linear-gradient(135deg, ${principle.color}30, ${principle.color}10)`,
-                        border: `1px solid ${principle.color}40`,
-                      }}
-                    >
-                      <Icon className="w-10 h-10" style={{ color: principle.color }} />
-                    </div>
-                    <h3 className="text-2xl font-semibold text-white mb-4">
-                      {principle.title}
-                    </h3>
-                    <p className="text-gray-400 leading-relaxed">
-                      {principle.description}
-                    </p>
-                  </GlassCard>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="max-w-3xl mx-auto"
+        >
+          <GlassCard hover={false}>
+            <form className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                    Name *
+                  </label>
+                  <Input
+                    id="name"
+                    type="text"
+                    required
+                    className="glass border-white/10 text-white placeholder:text-gray-500"
+                    placeholder="Your full name"
+                  />
+                </div>
 
-      {/* Call to Action */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-6 lg:px-12 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <GlassCard hover={false}>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                Ready to Transform Rare Disease Treatment?
-              </h2>
-              <p className="text-xl text-gray-400 mb-8">
-                Join us in developing the next generation of genetic medicines
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
-                <Link
-                  href="/partners"
-                  className="inline-flex items-center space-x-2 px-8 py-4 rounded-lg bg-[#C99EED] text-[#020617] font-semibold text-lg transition-all duration-300 hover:bg-[#C99EED]/90 hover:scale-105"
-                >
-                  <span>Partner with Us</span>
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
-                <Link
-                  href="/ask"
-                  className="inline-flex items-center space-x-2 px-8 py-4 rounded-lg glass glass-hover font-semibold text-white"
-                >
-                  <span>Ask Questions</span>
-                </Link>
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                    Email *
+                  </label>
+                  <Input
+                    id="email"
+                    type="email"
+                    required
+                    className="glass border-white/10 text-white placeholder:text-gray-500"
+                    placeholder="you@example.com"
+                  />
+                </div>
               </div>
-            </GlassCard>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="organization" className="block text-sm font-medium text-gray-300 mb-2">
+                    Organization
+                  </label>
+                  <Input
+                    id="organization"
+                    type="text"
+                    className="glass border-white/10 text-white placeholder:text-gray-500"
+                    placeholder="Your organization"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="role" className="block text-sm font-medium text-gray-300 mb-2">
+                    Role *
+                  </label>
+                  <Select>
+                    <SelectTrigger className="glass border-white/10 text-white">
+                      <SelectValue placeholder="Select your role" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[#0A0E18] border-white/10">
+                      <SelectItem value="clinician">Clinician</SelectItem>
+                      <SelectItem value="researcher">Researcher</SelectItem>
+                      <SelectItem value="patient-org">Patient Organization</SelectItem>
+                      <SelectItem value="investor">Investor</SelectItem>
+                      <SelectItem value="pharma">Pharma/Biotech</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                  Message *
+                </label>
+                <Textarea
+                  id="message"
+                  required
+                  rows={6}
+                  className="glass border-white/10 text-white placeholder:text-gray-500 resize-none"
+                  placeholder="Tell us about your project or inquiry..."
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-4">
+                  Interested in (select all that apply)
+                </label>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {collaborationTypes.map((type) => {
+                    const Icon = type.icon;
+                    const isSelected = selectedTypes.includes(type.id);
+                    return (
+                      <button
+                        key={type.id}
+                        type="button"
+                        onClick={() => toggleType(type.id)}
+                        className={`glass p-4 rounded-lg transition-all duration-300 ${
+                          isSelected ? 'bg-white/20 scale-105' : 'hover:bg-white/10'
+                        }`}
+                        style={{
+                          border: isSelected ? `2px solid ${type.color}` : '1px solid rgba(255,255,255,0.1)',
+                        }}
+                      >
+                        <Icon
+                          className="w-8 h-8 mx-auto mb-2"
+                          style={{ color: isSelected ? type.color : '#9CA3AF' }}
+                        />
+                        <div
+                          className="text-xs font-medium text-center"
+                          style={{ color: isSelected ? type.color : '#9CA3AF' }}
+                        >
+                          {type.label}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                className="w-full px-8 py-4 rounded-lg bg-[#32E2E2] text-[#020617] font-semibold text-lg transition-all duration-300 hover:bg-[#32E2E2]/90 hover:scale-105 hover:shadow-[0_0_30px_rgba(50,226,226,0.5)]"
+              >
+                Send Message
+              </button>
+            </form>
+          </GlassCard>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-12 text-center"
+          >
+            <blockquote className="text-2xl font-light text-white italic">
+              <span className="text-[#32E2E2] text-3xl">"</span>
+              Every genetic message deserves to be read to completion.
+              <span className="text-[#32E2E2] text-3xl">"</span>
+            </blockquote>
           </motion.div>
-        </div>
-      </section>
+        </motion.div>
+      </div>
     </div>
   );
 }
