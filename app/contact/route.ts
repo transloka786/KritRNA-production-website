@@ -1,4 +1,3 @@
-```typescript
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
@@ -27,7 +26,7 @@ export async function POST(request: Request) {
     const mailOptions = {
       from: process.env.EMAIL_USER, // Sender address
       to: process.env.RECIPIENT_EMAIL, // Recipient address (where you want to receive the form submissions)
-      subject: \`New Contact Form Submission from KritRNA: ${name}`,
+      subject: `New Contact Form Submission from KritRNA: ${name}`,
       html: `
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
@@ -48,4 +47,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: 'Failed to send email.' }, { status: 500 });
   }
 }
-```
