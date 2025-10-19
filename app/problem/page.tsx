@@ -74,7 +74,7 @@ export default function ProblemPage() {
                     src="/assets/videos/FInal KritRNA video.mp4"
                     autoPlay
                     loop
-                    muted
+                    controls
                     playsInline
                     className="w-full h-auto rounded-lg shadow-lg"
                     style={{ maxHeight: '300px' }}
