@@ -76,7 +76,7 @@ export default function ProblemClient({ ptcData }: ProblemClientProps) {
                   }}
                 >
                   <video
-                    src="/assets/problem-video/FInal KritRNA video.mp4"
+                    src="/assets/problem-video/problem_explainer.mp4"
                     autoPlay
                     loop
                     muted
