@@ -1,0 +1,50 @@
+{
+  "summary": {
+    "global_nonsense_share_pct": "≈10–11%",
+    "notes": "Share of disease-causing variants that are nonsense/PTC.",
+    "citations": [
+      {"label": "Mort 2008 meta-analysis", "url": "https://pubmed.ncbi.nlm.nih.gov/18454449/"},
+      {"label": "Temaj 2023 review", "url": "https://pubmed.ncbi.nlm.nih.gov/36979640/"},
+      {"label": "Vitale 2025 review", "url": "https://iubmb.onlinelibrary.wiley.com/doi/10.1002/iub.70031"},
+      {"label": "StopKB 2024 database note (~12%)", "url": "https://academic.oup.com/database/article/doi/10.1093/database/baae108/7819843"},
+      {"label": "Martins-Dias 2021 review", "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11073055/"}
+    ]
+  },
+  "examples": [
+    {
+      "name": "Cystic Fibrosis (CFTR)",
+      "mechanism": "PTC in CFTR causes truncated CFTR protein",
+      "citations": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC11073055/"]
+    },
+    {
+      "name": "Duchenne Muscular Dystrophy (DMD)",
+      "mechanism": "PTC in DMD truncates dystrophin; severe myopathy",
+      "citations": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC11073055/"]
+    },
+    {
+      "name": "β-Thalassemia (HBB)",
+      "mechanism": "PTC reduces β-globin, leading to anemia",
+      "citations": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC11073055/"]
+    },
+    {
+      "name": "Hemophilia A (F8)",
+      "mechanism": "PTC in F8 causes factor VIII deficiency",
+      "citations": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC11073055/"]
+    },
+    {
+      "name": "Familial Adenomatous Polyposis (APC)",
+      "mechanism": "Truncating APC variants drive polyposis risk",
+      "citations": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC11073055/"]
+    },
+    {
+      "name": "Cancer risk genes (BRCA1/2, ATM)",
+      "mechanism": "Truncations increase cancer susceptibility",
+      "citations": ["https://pmc.ncbi.nlm.nih.gov/articles/PMC11073055/"]
+    },
+    {
+      "name": "TP53 (tumor suppressor, somatic)",
+      "mechanism": "Frequent truncations disable p53 in cancer",
+      "citations": ["https://tp53.cancer.gov/resources", "https://www.oncokb.org/gene/TP53/Truncating%20Mutations"]
+    }
+  ]
+}

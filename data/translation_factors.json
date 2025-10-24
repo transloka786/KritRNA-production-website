@@ -1,0 +1,45 @@
+{
+  "groups": [
+    {
+      "name": "Initiation",
+      "examples": [
+        "eIF2α phosphorylation (ISR)", "eIF4E/eIF4F", "43S PIC",
+        "5' cap & Kozak context", "uORFs", "5'UTR RNA structure"
+      ],
+      "citations": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10443206/",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC10998230/",
+        "https://genomebiology.biomedcentral.com/articles/10.1186/s13059-024-03369-6"
+      ]
+    },
+    {
+      "name": "Elongation",
+      "examples": [
+        "tRNA abundance & charging", "tRNA modifications",
+        "codon optimality/dwell time", "CDS mRNA structure"
+      ],
+      "citations": [
+        "https://www.sciencedirect.com/science/article/pii/S1097276522002702",
+        "https://genomebiology.biomedcentral.com/articles/10.1186/s13059-023-02868-2"
+      ]
+    },
+    {
+      "name": "Termination & NMD",
+      "examples": [
+        "PTC identity (UAA/UAG/UGA)", "EJC 50–55 nt rule",
+        "SMG1-UPF axis"
+      ],
+      "citations": [
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC6858879/"
+      ]
+    },
+    {
+      "name": "mRNA Stability/Decay",
+      "examples": ["DDX6", "codon-mediated decay", "AREs", "P-bodies"],
+      "citations": [
+        "https://elifesciences.org/articles/92426",
+        "https://www.embopress.org/doi/10.1038/s44320-024-00026-9"
+      ]
+    }
+  ]
+}

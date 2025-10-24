@@ -1,0 +1,35 @@
+{
+  "summary": {
+    "indians_with_rare_diseases_estimate": "≈70–96 million",
+    "nprd_overview": "National Policy for Rare Diseases (NPRD), March 2021",
+    "nprd_beneficiaries_to_date": "1,118 (as of Aug 9, 2024 GOI press)",
+    "icmr_registry_enrolled_since_2019": "13,479 patients (LS reply, Aug 2024)",
+    "citations": [
+      {"label": "NPRD 2021 policy PDF", "url": "https://rarediseases.mohfw.gov.in/uploads/Content/1624967837_Final-NPRD-2021.pdf"},
+      {"label": "PIB press 2024 (beneficiaries)", "url": "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2043516"},
+      {"label": "Lok Sabha reply (ICMR NRROID)", "url": "https://sansad.in/getFile/loksabhaquestions/annex/182/AU3155_MuKvmz.pdf?source=pqals"},
+      {"label": "ORDI estimate 72–96M", "url": "https://ordindia.in/media/rare-diseases-in-india-orphan-no-more/"},
+      {"label": "BMC OJRD 2024 India review", "url": "https://ojrd.biomedcentral.com/articles/10.1186/s13023-024-03300-z"}
+    ],
+    "notes": "Estimates vary; registry coverage & diagnostics are expanding."
+  },
+  "centres_of_excellence": {
+    "notes": "Render compact list with state tags; cite NPRD/GOI releases.",
+    "citations": [
+      "https://www.pib.gov.in/PressReleaseIframePage.aspx?PRID=2043516",
+      "https://rarediseases.mohfw.gov.in/uploads/Content/1624967837_Final-NPRD-2021.pdf"
+    ]
+  },
+  "state_metrics": {
+    "schema": {
+      "state": "string",
+      "estimated_patients": "number|null",
+      "diagnosed_pct": "number|null",
+      "policy_initiatives": "string[]",
+      "active_coes": "string[]",
+      "research_highlights": "string[]",
+      "notes": "string"
+    },
+    "data": []
+  }
+}
