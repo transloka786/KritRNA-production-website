@@ -1,6 +1,5 @@
 // app/api/chat/route.ts
 export const runtime = 'nodejs';
-export const dynamic = 'force-dynamic';
 
 import { NextResponse } from 'next/server';
 
@@ -15,10 +14,8 @@ Stay strictly within these topics. For questions outside this scope, politely re
 
 Use the provided data context to ground your responses with accurate statistics and citations when relevant.`;
 
-// lazy-load so Node-only code in lib/data never ends up on Edge
 async function buildContextPrompt(lang?: string) {
   const { getPTCDiseases, getIndiaRareDiseases, getTranslationFactors } = await import('@/lib/data');
-
   const ptcData = getPTCDiseases();
   const indiaData = getIndiaRareDiseases();
   const translationData = getTranslationFactors();
@@ -35,7 +32,7 @@ Keep responses concise and add "Sources available on request" for detailed answe
 `.trim();
 }
 
-// Quick browser health check: open /api/chat to verify the route exists
+// Optional GET for quick health check in the browser
 export async function GET() {
   return NextResponse.json({ ok: true, ts: Date.now() });
 }
@@ -47,7 +44,6 @@ export async function POST(request: Request) {
     if (!Array.isArray(messages)) {
       return NextResponse.json({ error: 'Invalid payload: messages[] missing' }, { status: 400 });
     }
-
     if (!process.env.OPENAI_API_KEY) {
       return NextResponse.json({ error: 'OpenAI API key not configured' }, { status: 500 });
     }
@@ -61,8 +57,7 @@ export async function POST(request: Request) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        // gpt-3.5-turbo is retired; use a current model
-        model: 'gpt-4o-mini',
+        model: 'gpt-4o-mini', // use a current model
         temperature: 0.7,
         max_tokens: 500,
         messages: [
@@ -85,7 +80,7 @@ export async function POST(request: Request) {
       data?.choices?.[0]?.message?.content ??
       'I encountered an unexpected issue. Please email trnaativetransloka@gmail.com.';
 
-    // Return both keys so your existing widget code AND the new one work
+    // return both so your existing widget AND the newer one work
     return NextResponse.json({ reply: text, content: text });
   } catch (error: any) {
     return NextResponse.json(
