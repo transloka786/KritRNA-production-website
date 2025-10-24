@@ -112,15 +112,15 @@ export default function FounderPage() {
               </p>
 
               <p>
-                KritRNA was founded on the conviction that the tools of modern biology — RNA engineering, molecular design, and AI — can serve humanity best when guided by empathy and equity. By developing suppressor tRNA-based therapeutics tailored for the genetic landscape of Indian patients, we seek not only to correct premature stop codons but also to bridge the gap between discovery and dignity.
+                KritRNA was founded on the conviction that the tools of modern biology  RNA engineering, molecular design, and AI  can serve humanity best when guided by empathy and equity. By developing suppressor tRNA based therapeutics tailored for the genetic landscape of Indian patients, we seek not only to correct premature stop codons but also to bridge the gap between discovery and dignity.
               </p>
 
               <p>
-                Our vision is to democratize rare-disease therapy: to make India a global hub where innovation meets inclusion, where advanced molecular research translates into real treatment at a fraction of global costs, and where the next generation of scientists, clinicians, and entrepreneurs unite in service of a shared purpose — to give hope where none existed.
+                Our vision is to democratize rare disease therapy: to make India a global hub where innovation meets inclusion, where advanced molecular research translates into real treatment at a fraction of global costs, and where the next generation of scientists, clinicians, and entrepreneurs unite in service of a shared purpose to give hope where none existed.
               </p>
 
               <p className="italic">
-                Science is universal, but access is not. Through KritRNA, we aim to change that by ensuring that breakthroughs born from our labs echo the timeless Indian ideal of <span className="text-[#E1FF17]">Sarve Santu Niramayah</span> — "May all beings be free from disease."
+                Science is universal, but access is not. Through KritRNA, we aim to change that by ensuring that breakthroughs born from our labs echo the timeless Indian ideal of <span className="text-[#E1FF17]">Sarve Santu Niramayah</span>  "May all beings be free from disease."
               </p>
             </div>
           </GlassCard>
