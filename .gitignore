@@ -9,3 +9,10 @@ node_modules/
 out/
 .env.local
 .vercel/
+node_modules/
+.next/
+out/
+.env.local
+.vercel/
+# allow our one video even if *.mp4 is ignored somewhere above
+!public/assets/problem-video/problem_explainer.mp4
