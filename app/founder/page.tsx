@@ -26,7 +26,7 @@ const experience = [
   {
     role: 'PhD & Postdoctoral Researcher',
     institution: 'University of Hamburg',
-    period: '2019 - Present',
+    period: '2019 - 2026',
     description: 'Specialized in translation control, tRNA biology, and engineered suppressor tRNAs for nonsense mutation therapy',
   },
   {
