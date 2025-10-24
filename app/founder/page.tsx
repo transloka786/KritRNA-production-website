@@ -222,6 +222,12 @@ export default function FounderPage() {
               <p className="text-[#E1FF17] mb-2">Vellore Institute of Technology</p>
               <p className="text-gray-400 text-sm">Biotechnology</p>
             </GlassCard>
+            
+            <GlassCard>
+              <h3 className="text-xl font-semibold text-white mb-2">Bachelor's Degree (Honours)</h3>
+              <p className="text-[#E1FF17] mb-2">Hindu College, Delhi University</p>
+              <p className="text-gray-400 text-sm">Botany</p>
+            </GlassCard>
           </div>
         </motion.div>
       </div>
