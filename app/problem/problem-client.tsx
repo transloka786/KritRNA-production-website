@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import GlassCard from '@/components/GlassCard';
 import MetricTile from '@/components/MetricTile';
@@ -18,6 +19,14 @@ interface ProblemClientProps {
 }
 
 export default function ProblemClient({ ptcData }: ProblemClientProps) {
+  const [videoLanguage, setVideoLanguage] = useState<'english' | 'hindi'>('english');
+
+  // ⬇️ Paths match your old structure, filenames are the new ones
+  const videoSources = {
+    english: '/assets/problem-video/kritrna-video-english.mp4',
+    hindi: '/assets/problem-video/kritrna-video-hindi.mp4',
+  };
+
   return (
     <div className="min-h-screen">
       <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
@@ -66,27 +75,46 @@ export default function ProblemClient({ ptcData }: ProblemClientProps) {
               <div className="flex justify-center">
                 <motion.div
                   className="w-full max-w-md"
-                  animate={{
-                    scale: [1, 1.02, 1],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: 'easeInOut',
-                  }}
+                  animate={{ scale: [1, 1.02, 1] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
                 >
-                  <video
-                    src="/assets/problem-video/problem_explainer.mp4"
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    controls
-                    className="w-full h-auto rounded-lg shadow-lg"
-                    style={{ maxHeight: '300px' }}
-                  >
-                    Your browser does not support the video tag.
-                  </video>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-center gap-2">
+                      <button
+                        onClick={() => setVideoLanguage('english')}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                          videoLanguage === 'english'
+                            ? 'bg-[#E1FF17] text-black'
+                            : 'bg-white/10 text-white hover:bg-white/20'
+                        }`}
+                      >
+                        English
+                      </button>
+                      <button
+                        onClick={() => setVideoLanguage('hindi')}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                          videoLanguage === 'hindi'
+                            ? 'bg-[#E1FF17] text-black'
+                            : 'bg-white/10 text-white hover:bg-white/20'
+                        }`}
+                      >
+                        हिन्दी
+                      </button>
+                    </div>
+                    <video
+                      key={videoLanguage}
+                      src={videoSources[videoLanguage]}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      controls
+                      className="w-full h-auto rounded-lg shadow-lg"
+                      style={{ maxHeight: '300px' }}
+                    >
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
                 </motion.div>
               </div>
             </div>
@@ -149,6 +177,7 @@ export default function ProblemClient({ ptcData }: ProblemClientProps) {
             ))}
           </div>
         </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -172,7 +201,6 @@ export default function ProblemClient({ ptcData }: ProblemClientProps) {
             ))}
           </div>
         </motion.div>
-
       </div>
     </div>
   );
