@@ -61,7 +61,7 @@ export default function DiseaseCarousel() {
     const timer = setInterval(() => {
       setDirection(1);
       setCurrentIndex((prevIndex) => (prevIndex + 1) % diseaseSlides.length);
-    }, 5000);
+    }, 20000);
 
     return () => clearInterval(timer);
   }, []);
