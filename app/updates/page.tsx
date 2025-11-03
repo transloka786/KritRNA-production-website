@@ -1,59 +1,40 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Filter } from 'lucide-react';
+import { Filter, Loader2 } from 'lucide-react';
 import UpdateCard from '@/components/UpdateCard';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-const updates = [
-  {
-    tag: 'FDA',
-    title: 'FDA Grants Rare Pediatric Disease Designation for PTC Therapy',
-    summary: 'Novel suppressor tRNA approach receives regulatory milestone for Duchenne muscular dystrophy treatment.',
-    link: '#',
-    date: '2025-09-15',
-  },
-  {
-    tag: 'Trials',
-    title: 'Phase 2 Clinical Trial Initiated for Cystic Fibrosis PTC Patients',
-    summary: 'Multi-center study enrolling 120 patients with nonsense mutations in CFTR gene.',
-    link: '#',
-    date: '2025-09-01',
-  },
-  {
-    tag: 'PubMed',
-    title: 'Nature: AI-Designed tRNAs Show 40% Improved Suppression Efficiency',
-    summary: 'Machine learning models predict context-dependent suppressor tRNA performance in mammalian cells.',
-    link: '#',
-    date: '2025-08-22',
-  },
-  {
-    tag: 'EMA',
-    title: 'EMA Issues Draft Guidance on tRNA Therapeutics',
-    summary: 'European regulatory framework addresses safety, manufacturing, and clinical endpoints for genetic medicines.',
-    link: '#',
-    date: '2025-08-10',
-  },
-  {
-    tag: 'PubMed',
-    title: 'Cell: Translation Small-World Networks Reveal Drug Targets',
-    summary: 'Systems biology approach identifies 23 novel intervention points in cellular translation machinery.',
-    link: '#',
-    date: '2025-07-28',
-  },
-  {
-    tag: 'Trials',
-    title: 'India Launches National Rare Disease Registry',
-    summary: 'Government initiative aims to catalog genetic variants across all states, enabling precision medicine.',
-    link: '#',
-    date: '2025-07-15',
-  },
-];
+interface Update {
+  tag: string;
+  title: string;
+  summary: string;
+  link: string;
+  date: string;
+}
 
 export default function UpdatesPage() {
+  const [updates, setUpdates] = useState<Update[]>([]);
+  const [loading, setLoading] = useState(true);
   const [sourceFilter, setSourceFilter] = useState<string>('all');
+
+  useEffect(() => {
+    async function fetchUpdates() {
+      try {
+        const response = await fetch('/api/updates');
+        const data = await response.json();
+        setUpdates(data.updates || []);
+      } catch (error) {
+        console.error('Error fetching updates:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchUpdates();
+  }, []);
 
   const filteredUpdates = sourceFilter === 'all'
     ? updates
@@ -106,23 +87,33 @@ export default function UpdatesPage() {
           </Link>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {filteredUpdates.map((update, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
-            >
-              <UpdateCard {...update} />
-            </motion.div>
-          ))}
-        </motion.div>
+        {loading ? (
+          <div className="flex items-center justify-center py-20">
+            <Loader2 className="w-8 h-8 text-[#32E2E2] animate-spin" />
+          </div>
+        ) : filteredUpdates.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-gray-400 text-lg">No updates found</p>
+          </div>
+        ) : (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {filteredUpdates.map((update, index) => (
+              <motion.div
+                key={`${update.tag}-${index}`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 + index * 0.1 }}
+              >
+                <UpdateCard {...update} />
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
       </div>
     </div>
   );
