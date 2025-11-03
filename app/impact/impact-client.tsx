@@ -6,6 +6,7 @@ import MetricTile from '@/components/MetricTile';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import IndiaMap from '@/components/IndiaMap';
 import FootnoteModal from '@/components/FootnoteModal';
+import DiseaseCarousel from '@/components/DiseaseCarousel';
 
 const impactMetrics = [
   { label: 'Estimated Patients', value: 5000000, description: 'Globally affected by PTCs' },
@@ -106,7 +107,7 @@ export default function ImpactClient({ indiaData }: ImpactClientProps) {
               <h3 className="text-lg font-semibold text-white mb-2">Global Gaps</h3>
               <p className="text-gray-400 text-sm">Limited PTC therapeutics pipeline</p>
             </GlassCard>
-            
+
             <GlassCard className="text-center">
               <div className="w-12 h-12 mx-auto mb-4 bg-[#32E2E2]/20 rounded-full flex items-center justify-center">
                 <span className="text-[#32E2E2] text-xl">🧬</span>
@@ -114,7 +115,7 @@ export default function ImpactClient({ indiaData }: ImpactClientProps) {
               <h3 className="text-lg font-semibold text-white mb-2">Diagnostic Gaps</h3>
               <p className="text-gray-400 text-sm">85% patients undiagnosed globally</p>
             </GlassCard>
-            
+
             <GlassCard className="text-center">
               <div className="w-12 h-12 mx-auto mb-4 bg-[#E1FF17]/20 rounded-full flex items-center justify-center">
                 <span className="text-[#E1FF17] text-xl">🇮🇳</span>
@@ -122,7 +123,7 @@ export default function ImpactClient({ indiaData }: ImpactClientProps) {
               <h3 className="text-lg font-semibold text-white mb-2">India-Specific</h3>
               <p className="text-gray-400 text-sm">Fragmented genetic data across states</p>
             </GlassCard>
-            
+
             <GlassCard className="text-center">
               <div className="w-12 h-12 mx-auto mb-4 bg-[#C99EED]/20 rounded-full flex items-center justify-center">
                 <span className="text-[#C99EED] text-xl">⚡</span>
@@ -131,6 +132,19 @@ export default function ImpactClient({ indiaData }: ImpactClientProps) {
               <p className="text-gray-400 text-sm">Regional disparities in care</p>
             </GlassCard>
           </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="mb-20"
+        >
+          <h2 className="text-4xl font-bold text-white text-center mb-12">
+            Target Diseases & Therapeutic Applications
+          </h2>
+          <DiseaseCarousel />
         </motion.div>
 
         <motion.div
