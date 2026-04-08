@@ -32,6 +32,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
       },
     ],
-    sitemap: 'https://hellokritna.com/sitemap.xml',
+    sitemap: 'https://hellokritrna.com/sitemap.xml',
   }
 }
