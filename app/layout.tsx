@@ -14,7 +14,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://hellokritna.com'),
+  metadataBase: new URL('https://hellokritrna.com'),
   title: {
     default: 'KritRNA | Suppressor tRNA Therapeutics for Rare Genetic Diseases in India',
     template: '%s | KritRNA'
@@ -27,13 +27,13 @@ export const metadata: Metadata = {
     'premature stop codon readthrough', 'orphan drug India',
     'KritRNA', 'tRNA biology', 'genetic disease biotech India'
   ],
-  authors: [{ name: 'KritRNA', url: 'https://hellokritna.com' }],
+  authors: [{ name: 'KritRNA', url: 'https://hellokritrna.com' }],
   creator: 'KritRNA',
   publisher: 'KritRNA',
   openGraph: {
     type: 'website',
     locale: 'en_IN',
-    url: 'https://hellokritna.com',
+    url: 'https://hellokritrna.com',
     siteName: 'KritRNA',
     title: 'KritRNA | Suppressor tRNA Therapeutics for Rare Genetic Diseases',
     description: 'Engineering the language of life. Programmable tRNA therapies for India\'s 80 million rare disease patients.',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, 'max-snippet': -1 }
   },
   alternates: {
-    canonical: 'https://hellokritna.com'
+    canonical: 'https://hellokritrna.com'
   },
   icons: {
     icon: '/LOGO.png',
@@ -74,8 +74,8 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Organization",
               "name": "KritRNA",
-              "url": "https://hellokritna.com",
-              "logo": "https://hellokritna.com/assets/kritrna/LOGO.png",
+              "url": "https://hellokritrna.com",
+              "logo": "https://hellokritrna.com/assets/kritrna/LOGO.png",
               "description": "KritRNA develops programmable suppressor tRNA therapeutics for rare genetic diseases caused by nonsense mutations, focused on India's rare disease population of 80 million patients.",
               "foundingDate": "2024",
               "areaServed": "India",
