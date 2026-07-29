@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ap } from '@/lib/assets';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 
@@ -12,6 +11,7 @@ const navLinks = [
   { href: '/about', label: 'About' },
   { href: '/problem', label: 'Problem' },
   { href: '/technology', label: 'Technology' },
+  { href: '/evidence', label: 'Evidence' },
   { href: '/impact', label: 'Impact' },
   { href: '/updates', label: 'Updates' },
   { href: '/partners', label: 'Partners' },
@@ -34,17 +34,10 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center space-x-3 group flex-shrink-0">
-            <img
-              src="/LOGO.png"
-              alt="KritRNA"
-              className="h-8 transition-transform duration-300 group-hover:scale-105"
-            />
-            <span className="text-xl font-bold text-white tracking-tight">
-              KritRNA
-            </span>
+            <img src="/LOGO.png" alt="KritRNA" className="h-8 transition-transform duration-300 group-hover:scale-105" />
+            <span className="text-xl font-bold text-white tracking-tight">KritRNA</span>
           </Link>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex items-center space-x-1 flex-1 justify-end">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
@@ -52,7 +45,7 @@ export default function Navbar() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="relative px-4 py-2 text-sm font-normal text-gray-300 transition-colors duration-300 hover:text-brand-pink group tracking-wide"
+                  className="relative px-3 py-2 text-sm font-normal text-gray-300 transition-colors duration-300 hover:text-brand-pink group tracking-wide"
                 >
                   {link.label}
                   {isActive && (
@@ -62,13 +55,12 @@ export default function Navbar() {
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
-                  <span className="absolute inset-x-4 -bottom-px h-px bg-gradient-to-r from-brand-pink/0 via-brand-pink/70 to-brand-pink/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <span className="absolute inset-x-3 -bottom-px h-px bg-gradient-to-r from-brand-pink/0 via-brand-pink/70 to-brand-pink/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </Link>
               );
             })}
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 text-gray-300 hover:text-white transition-colors"
@@ -79,7 +71,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
